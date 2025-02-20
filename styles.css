@@ -1,11 +1,19 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
 body {
   font-family: Arial, sans-serif;
   text-align: center;
   background: linear-gradient(to right, #ff7eb3, #ff758c);
-  margin: 0;
   overflow: hidden;
 }
 
+/* Container for Flipbook */
 .container {
   display: flex;
   justify-content: center;
@@ -13,14 +21,17 @@ body {
   height: 100vh;
 }
 
+/* Flipbook styling with perspective for 3D effect */
 #book {
   width: 300px;
   height: 400px;
   position: relative;
   perspective: 1000px;
-  animation: floatBook 3s ease-in-out infinite alternate, tiltBook 4s ease-in-out infinite alternate;
+  animation: floatBook 3s ease-in-out infinite alternate,
+             tiltBook 4s ease-in-out infinite alternate;
 }
 
+/* Individual Pages */
 .page {
   width: 100%;
   height: 100%;
@@ -36,16 +47,16 @@ body {
   backface-visibility: hidden;
   transform-origin: left;
   transition: transform 1s ease-in-out;
+  will-change: transform; /* Helps with smoother animations */
 }
 
+/* Front Cover */
 .cover {
   background: purple url('flowers2.png') no-repeat center center;
   background-size: cover;
   color: white;
   font-size: 24px;
 }
-
-
 
 /* Floating Elements Container */
 .floating-elements {
@@ -58,29 +69,43 @@ body {
   z-index: 100;
 }
 
-/* Floating element styling: increased font-size for a larger emoji */
+/* Floating element styling */
 .floating {
   position: absolute;
-  bottom: -60px; /* starting slightly off-screen */
-  font-size: 50px; /* increased font size */
+  bottom: -60px; /* start slightly off-screen */
+  font-size: 50px; /* size of the emojis */
   width: 1em;
   height: 1em;
   display: inline-block;
-  transform: scale(1);
   animation: floatUp 10s linear infinite;
+  transform: translateY(0);
 }
 
+/* Animations */
 @keyframes floatBook {
-  0% { transform: translateY(0px); }
+  0%   { transform: translateY(0); }
   100% { transform: translateY(10px); }
 }
 
 @keyframes tiltBook {
-  0% { transform: rotateX(10deg) rotateY(-10deg); }
+  0%   { transform: rotateX(10deg) rotateY(-10deg); }
   100% { transform: rotateX(-10deg) rotateY(10deg); }
 }
 
+@keyframes wrapEffect {
+  0%   { transform: scale(0.9) rotateY(-170deg); }
+  100% { transform: scale(1)   rotateY(-180deg); }
+}
+
+/* Simplified floatUp animation to reduce potential lag */
 @keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
+  0%   { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Performance Optimization for Mobile: remove heavy box shadow */
+@media (max-width: 600px) {
+  .page {
+    box-shadow: none;
+  }
 }
