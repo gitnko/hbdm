@@ -1,0 +1,86 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(to right, #ff7eb3, #ff758c);
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#book {
+  width: 300px;
+  height: 400px;
+  position: relative;
+  perspective: 1000px;
+  animation: floatBook 3s ease-in-out infinite alternate, tiltBook 4s ease-in-out infinite alternate;
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transform-origin: left;
+  transition: transform 1s ease-in-out;
+}
+
+.cover {
+  background: purple url('flowers2.png') no-repeat center center;
+  background-size: cover;
+  color: white;
+  font-size: 24px;
+}
+
+
+
+/* Floating Elements Container */
+.floating-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Floating element styling: increased font-size for a larger emoji */
+.floating {
+  position: absolute;
+  bottom: -60px; /* starting slightly off-screen */
+  font-size: 50px; /* increased font size */
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  transform: scale(1);
+  animation: floatUp 10s linear infinite;
+}
+
+@keyframes floatBook {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(10px); }
+}
+
+@keyframes tiltBook {
+  0% { transform: rotateX(10deg) rotateY(-10deg); }
+  100% { transform: rotateX(-10deg) rotateY(10deg); }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-120vh); opacity: 0; }
+}
